@@ -83,7 +83,7 @@ Error_list_t DestroyList(List_t* list)
 
 Error_list_t DumpList(List_t list) {
     printf("\n---------------------------DUMP----------------------------\n");
-    printf("data:       ");
+    printf("data:     ");
     for(int i = 0; i < list.capacity; i++) {
         printf("%d ", list.data[i]);
     }

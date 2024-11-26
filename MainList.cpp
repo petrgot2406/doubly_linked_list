@@ -26,10 +26,16 @@ int main()
     InitList(&list);
     DumpList(list);
 
-    PushToList(&list, 1, 2);
+    PushToList(&list, 0, 10);
     DumpList(list);
 
-    PopList(&list, 1);
+    PushToList(&list, 0, 20);
+    DumpList(list);
+
+    PushToList(&list, 0, 30);
+    DumpList(list);
+
+    PopList(&list, 2);
     DumpList(list);
 
     DestroyList(&list);
@@ -86,36 +92,35 @@ Error_list_t DestroyList(List_t* list)
 
 Error_list_t DumpList(List_t list)
 {
-    printf("\n---------------------------DUMP----------------------------\n");
+    printf("\n--------------------------------------DUMP--------------------------------------\n");
     printf("data:     ");
 
     for (int i = 0; i < list.capacity; i++)
     {
-        printf("%d ", list.data[i]);
+        printf("%6d ", list.data[i]);
     }
 
     printf("\nnext:     ");
 
     for (int i = 0; i < list.capacity; i++)
     {
-        printf("%d ", list.next[i]);
+        printf("%6d ", list.next[i]);
     }
 
     printf("\nprevious: ");
 
     for (int i = 0; i < list.capacity; i++)
     {
-        printf("%d ", list.previous[i]);
+        printf("%6d ", list.previous[i]);
     }
 
     printf("\nfree: %d", list.free);
     printf("\nsize: %d", list.size);
     printf("\ncapacity: %d", list.capacity);
-    printf("\n-----------------------------------------------------------\n");
+    printf("\n--------------------------------------------------------------------------------\n");
 
     return LIST_OK;
 }
-
 
 Error_list_t PushToList(List_t* list, int anchor, int new_element)
 {
@@ -142,7 +147,6 @@ Error_list_t PushToList(List_t* list, int anchor, int new_element)
     return LIST_OK;
 }
 
-
 Error_list_t PopList(List_t* list, int anchor)
 {
     int index = 0;
@@ -161,14 +165,13 @@ Error_list_t PopList(List_t* list, int anchor)
     list->previous[ind_next] = ind_previous;
 
     list->previous[index] = POISON;
-    list->next[index]     = list -> free;
+    list->next[index]     = list->free;
     list->free            = index;
 
     list->size--;
 
     return LIST_OK;
 }
-
 
 Error_list_t PoisonArray(int* array, int anchor)
 {

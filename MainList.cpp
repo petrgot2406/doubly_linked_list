@@ -42,9 +42,9 @@ Error_list_t InitList(List_t* list)
         return ERROR_ADDRESS;
     }
 
-    list->data     = (int*)calloc((size_t)list->capacity, sizeof(int));
-    list->previous = (int*)calloc((size_t)list->capacity, sizeof(int));
-    list->next     = (int*)calloc((size_t)list->capacity, sizeof(int));
+    list->data     = (int*)calloc(DATA_SIZE, sizeof(int));
+    list->previous = (int*)calloc(DATA_SIZE, sizeof(int));
+    list->next     = (int*)calloc(DATA_SIZE, sizeof(int));
 
     list->free     = 1;
     list->size     = 1;
@@ -56,7 +56,7 @@ Error_list_t InitList(List_t* list)
     list->next[0]     = 0;
     list->previous[0] = 0;
 
-    for (int i = 1; i < list->capacity - 1; ++i)
+    for (int i = 1; i < list->capacity - 1; i++)
     {
         list->next[i] = i + 1;
     }
@@ -81,14 +81,24 @@ Error_list_t DestroyList(List_t* list)
     return LIST_OK;
 }
 
-Error_list_t DumpList(List_t list)
-{
-    printf("Size = %d\n",     list.size);
-    printf("Capacity = %d\n", list.capacity);
-    for (int i = 0; i < list.size; ++i)
-    {
-        printf("element[%d] = %d\n", i, list.data[i]);
+Error_list_t DumpList(List_t list) {
+    printf("\n---------------------------DUMP----------------------------\n");
+    printf("data:       ");
+    for(int i = 0; i < list.capacity; i++) {
+        printf("%d ", list.data[i]);
     }
+    printf("\nnext:     ");
+    for(int i = 0; i < list.capacity; i++) {
+        printf("%d ", list.next[i]);
+    }
+    printf("\nprevious: ");
+    for(int i = 0; i < list.capacity; i++) {
+        printf("%d ", list.previous[i]);
+    }
+    printf("\nfree: %d", list.free);
+    printf("\nsize: %d", list.size);
+    printf("\ncapacity: %d", list.capacity);
+    printf("\n-----------------------------------------------------------\n");
     return LIST_OK;
 }
 
@@ -126,7 +136,12 @@ Error_list_t PopList(List_t* list, int number)
 
 Error_list_t PoisonArray(int* array, int anchor)
 {
-    for (int i = anchor; i < DATA_SIZE; ++i)
+    if (array == NULL)
+    {
+        return ERROR_ADDRESS;
+    }
+
+    for (int i = anchor; i < DATA_SIZE; i++)
     {
         array[i] = POISON;
     }

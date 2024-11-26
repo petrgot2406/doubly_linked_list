@@ -1,8 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-const int POISON = -1;
-const int DATA_SIZE = 10;
+#define POISON  -1
+#define DATA_SIZE  10
 
 enum Error_list_t
 {

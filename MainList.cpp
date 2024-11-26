@@ -15,8 +15,8 @@ struct List_t
 Error_list_t InitList(List_t* list);
 Error_list_t DestroyList(List_t* list);
 Error_list_t DumpList(List_t list);
-//Error_list_t PushToList(List_t* list, int anchor, int new_element);
-//Error_list_t PopList(List_t* list, int anchor);
+Error_list_t PushToList(List_t* list, int anchor, int new_element);
+Error_list_t PopList(List_t* list, int anchor);
 Error_list_t PoisonArray(int* array, int anchor);
 
 int main()
@@ -26,8 +26,11 @@ int main()
     InitList(&list);
     DumpList(list);
 
-    //PushToList(&list, 1, 2);
-    //DumpList(list);
+    PushToList(&list, 1, 2);
+    DumpList(list);
+
+    PopList(&list, 1);
+    DumpList(list);
 
     DestroyList(&list);
 
@@ -81,58 +84,91 @@ Error_list_t DestroyList(List_t* list)
     return LIST_OK;
 }
 
-Error_list_t DumpList(List_t list) {
+Error_list_t DumpList(List_t list)
+{
     printf("\n---------------------------DUMP----------------------------\n");
     printf("data:     ");
-    for(int i = 0; i < list.capacity; i++) {
+
+    for (int i = 0; i < list.capacity; i++)
+    {
         printf("%d ", list.data[i]);
     }
+
     printf("\nnext:     ");
-    for(int i = 0; i < list.capacity; i++) {
+
+    for (int i = 0; i < list.capacity; i++)
+    {
         printf("%d ", list.next[i]);
     }
+
     printf("\nprevious: ");
-    for(int i = 0; i < list.capacity; i++) {
+
+    for (int i = 0; i < list.capacity; i++)
+    {
         printf("%d ", list.previous[i]);
     }
+
     printf("\nfree: %d", list.free);
     printf("\nsize: %d", list.size);
     printf("\ncapacity: %d", list.capacity);
     printf("\n-----------------------------------------------------------\n");
+
     return LIST_OK;
 }
 
-/*
+
 Error_list_t PushToList(List_t* list, int anchor, int new_element)
 {
     list->data[list->free] = new_element;
+
     int old_free = list->free;
 
     list->free = list->next[list->free];
 
     int index = 0;
 
-    for(int i = 0; i < anchor; i++)
+    for (int i = 0; i < anchor; i++)
     {
         index = list->next[index];
     }
 
-    list->next[old_free] = list->next[index];
+    list->next[old_free]              = list->next[index];
     list->previous[list->next[index]] = old_free;
-    list->next[index] = old_free;
-    list->previous[old_free] = index;
+    list->next[index]                 = old_free;
+    list->previous[old_free]          = index;
 
     list->size++;
 
     return LIST_OK;
 }
-*/
-/*
-Error_list_t PopList(List_t* list, int number)
+
+
+Error_list_t PopList(List_t* list, int anchor)
 {
+    int index = 0;
+
+    for (int i = 0; i < anchor; i++)
+    {
+        index = list->next[index];
+    }
+
+    list->data[index] = POISON;
+
+    int ind_next     = list->next[index];
+    int ind_previous = list->previous[index];
+
+    list->next[ind_previous] = ind_next;
+    list->previous[ind_next] = ind_previous;
+
+    list->previous[index] = POISON;
+    list->next[index]     = list -> free;
+    list->free            = index;
+
+    list->size--;
+
     return LIST_OK;
 }
-*/
+
 
 Error_list_t PoisonArray(int* array, int anchor)
 {

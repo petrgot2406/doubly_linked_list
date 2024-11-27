@@ -119,37 +119,51 @@ Error_list_t CheckList(List_t* list, int anchor)
 {
     if (list == NULL)
     {
-        printf("Error: address is not exist!\n");
+        printf("\n\n\n\n\n\n\n\n\n\n");
+        printf("Error: address is not exist!");
+        printf("\n\n\n\n\n\n\n\n\n\n");
         return ERROR_ADDRESS;
     }
     else if (list->size <= 0)
     {
-        printf("Error: size is lower than NULL!\n");
+        printf("\n\n\n\n\n\n\n\n\n\n");
+        printf("Error: size is lower than NULL!");
+        printf("\n\n\n\n\n\n\n\n\n\n");
         return ERROR_SIZE;
     }
     else if (list->capacity < list->size)
     {
-        printf("Error: capacity is lower than size!\n");
+        printf("\n\n\n\n\n\n\n\n\n\n");
+        printf("Error: capacity is lower than size!");
+        printf("\n\n\n\n\n\n\n\n\n\n");
         return ERROR_CAPACITY;
     }
     else if (anchor < 0)
     {
-        printf("Error: anchor is lower than NULL!\n");
+        printf("\n\n\n\n\n\n\n\n\n\n");
+        printf("Error: index of anchor is lower than NULL!");
+        printf("\n\n\n\n\n\n\n\n\n\n");
         return ERROR_ANCHOR;
     }
     else if (anchor >= list->size)
     {
-        printf("Error: anchor is bigger than size!\n");
+        printf("\n\n\n\n\n\n\n\n\n\n");
+        printf("Error: index of anchor is bigger than size!");
+        printf("\n\n\n\n\n\n\n\n\n\n");
         return ERROR_ANCHOR;
     }
     else if (list->free <= 0)
     {
-        printf("Error: index of free element is lower than NULL!\n");
+        printf("\n\n\n\n\n\n\n\n\n\n");
+        printf("Error: index of free element is lower than NULL!");
+        printf("\n\n\n\n\n\n\n\n\n\n");
         return ERROR_FREE;
     }
     else if (list->free >= list->capacity)
     {
-        printf("Error: index of free element is bigger than capacity!\n");
+        printf("\n\n\n\n\n\n\n\n\n\n");
+        printf("Error: index of free element is bigger than capacity!");
+        printf("\n\n\n\n\n\n\n\n\n\n");
         return ERROR_FREE;
     }
     return LIST_OK;

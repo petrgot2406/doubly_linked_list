@@ -47,10 +47,6 @@ int main()
     DumpList(&list);
     GraphDump(&list, dump_dot_name, &dump_html, number_of_dumps_txt_name);
 
-    PushToList(&list, 0, 30);
-    DumpList(&list);
-    GraphDump(&list, dump_dot_name, &dump_html, number_of_dumps_txt_name);
-
     PopList(&list, 1);
     DumpList(&list);
     GraphDump(&list, dump_dot_name, &dump_html, number_of_dumps_txt_name);
@@ -364,9 +360,10 @@ void DeleteOldDumps(const char* number_of_dumps_txt_name)
 
     for (int i = 0; i < number; i++)
     {
-        char file_name[100] = "";
+        char* file_name = (char*)calloc(100, sizeof(char));
         sprintf(file_name, "Graphs/Dump%02d.png", i);
         remove(file_name);
+        free(file_name);
     }
 
     fclose(number_file);

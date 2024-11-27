@@ -14,8 +14,11 @@ LINUXFLAGS = -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive
 leak,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,$\
 unreachable,vla-bound,vptr
 
-List.exe: MainList.o
-	$(CC) ./MainList.o -o List.exe $(LINUXFLAGS)
+List.exe: MainList.o List.o
+	$(CC) ./MainList.o ./List.o -o List.exe $(LINUXFLAGS)
 
-MainList.o:	MainList.cpp ConstantsList.h
+MainList.o:	MainList.cpp ConstantsList.h List.h
 	$(CC) -c ./MainList.cpp $(LINUXFLAGS)
+
+List.o: List.cpp ConstantsList.h List.h
+	$(CC) -c ./List.cpp $(LINUXFLAGS)

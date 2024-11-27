@@ -1,7 +1,7 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#ifndef CONSTANTS_LIST_H
+#define CONSTANTS_LIST_H
 
-#define POISON  -1
+#define POISON    -1
 #define DATA_SIZE  10
 
 enum Error_list_t

@@ -17,5 +17,5 @@ unreachable,vla-bound,vptr
 List.exe: MainList.o
 	$(CC) ./MainList.o -o List.exe $(LINUXFLAGS)
 
-MainList.o:	MainList.cpp Constants.h
+MainList.o:	MainList.cpp ConstantsList.h
 	$(CC) -c ./MainList.cpp $(LINUXFLAGS)
